@@ -2794,7 +2794,7 @@ html_content = r'''<!DOCTYPE html>
         </div>
       </div>
       <div class="footer-bottom">
-        <div>___COPYRIGHT_2027_PROTECTED___</div>
+        <div>© 2026 Soltys. Онлайн-центр індивідуального навчання. Усі права захищено.</div>
         <div style="display:flex; gap:18px;">
           <a href="#">Політика конфіденційності</a>
           <a href="#">Договір оферти</a>
