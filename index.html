@@ -290,7 +290,7 @@
       right: 0;
       z-index: 1000;
       transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      padding: 18px 0;
+      padding: calc(16px + env(safe-area-inset-top, 0px)) 0 16px;
       background: transparent;
       border-bottom: 1px solid transparent;
     }
@@ -1683,7 +1683,7 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-top: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 12px 18px env(safe-area-inset-bottom, 12px);
+      padding: 12px 16px calc(18px + env(safe-area-inset-bottom, 12px));
       z-index: 999;
       box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.3);
     }
@@ -1956,6 +1956,13 @@
     }
 
     /* PRO MAX MOBILE ADAPTATION */
+      .scroll-progress-container {
+        display: none !important;
+      }
+      .mobile-sticky-bar {
+        padding-bottom: calc(24px + env(safe-area-inset-bottom, 12px)) !important;
+      }
+
     @media (max-width: 480px) {
       .hero {
         padding: 90px 0 50px;
