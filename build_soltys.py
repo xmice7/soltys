@@ -1,4 +1,5 @@
-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Build script for Soltys Educational Center Landing Page
 Enhanced with Framer Motion (Motion engine), 21st.dev design primitives, and UI/UX Pro Max rules.
@@ -25,37 +26,37 @@ html_content = r'''<!DOCTYPE html>
       feature-settings: "tnum";
     }
     :root {
-      --navy-950:
-      --navy-900:
-      --navy-850:
-      --navy-800:
-      --navy-750:
-      --navy-700:
-      --navy-600:
-      --amber-500:
-      --amber-600:
-      --amber-400:
-      --amber-100:
-      --amber-50:
-      --emerald-500:
-      --emerald-600:
-      --emerald-400:
-      --emerald-100:
-      --emerald-50:
-      --indigo-500:
-      --indigo-600:
-      --indigo-50:
-      --slate-50:
-      --slate-100:
-      --slate-200:
-      --slate-300:
-      --slate-400:
-      --slate-500:
-      --slate-700:
-      --slate-800:
-      --slate-900:
-      --white:
-      --line:
+      --navy-950: #050811;
+      --navy-900: #0a0f1d;
+      --navy-850: #0f172a;
+      --navy-800: #172033;
+      --navy-750: #1e293b;
+      --navy-700: #334155;
+      --navy-600: #475569;
+      --amber-500: #f59e0b;
+      --amber-600: #d97706;
+      --amber-400: #fbbf24;
+      --amber-100: #fef3c7;
+      --amber-50:  #fffbeb;
+      --emerald-500: #10b981;
+      --emerald-600: #059669;
+      --emerald-400: #34d399;
+      --emerald-100: #d1fae5;
+      --emerald-50:  #ecfdf5;
+      --indigo-500: #6366f1;
+      --indigo-600: #4f46e5;
+      --indigo-50:  #eef2ff;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --white: #ffffff;
+      --line: #e2e8f0;
       --line-dark: rgba(255, 255, 255, 0.1);
             --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Plus Jakarta Sans', system-ui, sans-serif;
       --font-serif: 'New York', 'Literata', Georgia, serif;
@@ -241,7 +242,7 @@ html_content = r'''<!DOCTYPE html>
     }
     .btn-primary {
       background: linear-gradient(135deg, var(--amber-500) 0%, var(--amber-600) 100%);
-      color:
+      color: #000000;
       box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
       font-weight: 800;
     }
@@ -414,8 +415,8 @@ html_content = r'''<!DOCTYPE html>
       transition: all 0.2s ease;
     }
     .messenger-btn:hover {
-      background:
-      border-color:
+      background: #229ED9;
+      border-color: #229ED9;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(34, 158, 217, 0.4);
     }
@@ -489,7 +490,7 @@ html_content = r'''<!DOCTYPE html>
       gap: 12px;
     }
     .hero {
-      background: radial-gradient(120% 120% at 50% -20%,
+      background: radial-gradient(120% 120% at 50% -20%, #172033 0%, #0a0f1d 55%, #050811 100%);
       color: var(--white);
       padding: 140px 0 90px;
       position: relative;
@@ -636,7 +637,7 @@ html_content = r'''<!DOCTYPE html>
       height: 44px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--amber-500) 0%, var(--amber-600) 100%);
-      color:
+      color: #000;
       font-weight: 800;
       display: flex;
       align-items: center;
@@ -856,7 +857,7 @@ html_content = r'''<!DOCTYPE html>
     }
     .pill-gold {
       background: linear-gradient(135deg, var(--amber-400) 0%, var(--amber-500) 100%);
-      color:
+      color: #000;
       font-weight: 800;
     }
     .track-stage {
@@ -896,7 +897,7 @@ html_content = r'''<!DOCTYPE html>
       color: var(--amber-400);
     }
     .calc-section {
-      background: radial-gradient(120% 120% at 50% 0%,
+      background: radial-gradient(120% 120% at 50% 0%, #172033 0%, #0a0f1d 70%);
       color: var(--white);
       position: relative;
       padding: 100px 0;
@@ -930,7 +931,7 @@ html_content = r'''<!DOCTYPE html>
       height: 24px;
       border-radius: 50%;
       background: var(--amber-500);
-      color:
+      color: #000;
       font-weight: 800;
       font-size: 12.5px;
       display: flex;
@@ -968,7 +969,7 @@ html_content = r'''<!DOCTYPE html>
       gap: 7px;
     }
     .calc-pill:hover {
-      color:
+      color: #ffffff;
       background: rgba(255, 255, 255, 0.08);
     }
     .calc-pill:active {
@@ -976,7 +977,7 @@ html_content = r'''<!DOCTYPE html>
     }
     .calc-pill.active {
       background: linear-gradient(135deg, var(--amber-500) 0%, var(--amber-600) 100%);
-      color:
+      color: #000000;
       border-color: rgba(255, 255, 255, 0.25);
       font-weight: 800;
       box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
@@ -1437,7 +1438,7 @@ html_content = r'''<!DOCTYPE html>
       line-height: 1.65;
     }
     .final-section {
-      background: radial-gradient(120% 120% at 50% 0%,
+      background: radial-gradient(120% 120% at 50% 0%, #172033 0%, #0a0f1d 75%);
       color: var(--white);
       padding: 100px 0;
       position: relative;
@@ -1552,7 +1553,7 @@ html_content = r'''<!DOCTYPE html>
     }
     .field-hint-error {
       font-size: 12.5px;
-      color:
+      color: #f87171;
       display: none;
     }
     .field-hint-error.visible {
@@ -1638,7 +1639,7 @@ html_content = r'''<!DOCTYPE html>
       transition: all 0.2s ease;
     }
     .footer-social-btn:hover {
-      background:
+      background: #229ED9;
       transform: translateY(-2px);
     }
     .footer-bottom {
@@ -1665,7 +1666,7 @@ html_content = r'''<!DOCTYPE html>
       width: 58px;
       height: 58px;
       border-radius: 50%;
-      background:
+      background: #229ED9;
       color: var(--white);
       display: flex;
       align-items: center;
@@ -1705,7 +1706,7 @@ html_content = r'''<!DOCTYPE html>
       width: 48px;
       height: 48px;
       border-radius: var(--radius-pill);
-      background:
+      background: #229ED9;
       color: var(--white);
       display: flex;
       align-items: center;
@@ -1835,7 +1836,7 @@ html_content = r'''<!DOCTYPE html>
       .hero-sub,
       .trust-sub,
       .calc-step-label {
-        color:
+        color: #ffffff !important;
       }
     }
     @media (prefers-reduced-motion: reduce) {
