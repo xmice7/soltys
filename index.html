@@ -88,7 +88,7 @@
       color: var(--slate-800);
       background-color: var(--slate-50);
       line-height: 1.6;
-      overflow-x: hidden;
+      overflow-x: hidden; width: 100%; position: relative;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       position: relative;
@@ -1954,6 +1954,53 @@
         align-items: flex-start;
       }
     }
+
+    /* PRO MAX MOBILE ADAPTATION */
+    @media (max-width: 480px) {
+      .hero {
+        padding: 90px 0 50px;
+      }
+      .hero h1 {
+        font-size: 32px !important;
+        line-height: 1.15;
+      }
+      .hero-sub {
+        font-size: 16px !important;
+      }
+      .dashboard-card {
+        padding: 20px !important;
+        border-radius: 20px !important;
+      }
+      .float-badge {
+        padding: 8px 12px !important;
+      }
+      .float-badge strong {
+        font-size: 12.5px !important;
+      }
+      .float-badge span {
+        font-size: 10px !important;
+      }
+      .badge-top {
+        right: 0px !important;
+        top: -15px !important;
+      }
+      .badge-bottom {
+        left: 0px !important;
+        bottom: -15px !important;
+      }
+      .calc-pill {
+        padding: 10px 16px !important;
+        font-size: 14px !important;
+        min-height: 44px !important;
+      }
+      .trust-item h3 {
+        font-size: 32px !important;
+      }
+      .section-title {
+        font-size: 28px !important;
+      }
+    }
+
   </style>
 </head>
 <body>
