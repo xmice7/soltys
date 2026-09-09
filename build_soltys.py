@@ -9,6 +9,13 @@ html_content = r'''<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0f1d">
+  <meta name="theme-color" content="#0a0f1d" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#0a0f1d" media="(prefers-color-scheme: light)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="color-scheme" content="dark">
+
   <title>Soltys — Онлайн-репетитори для 1–11 класів та підготовка до НМТ 2027</title>
   <meta name="description" content="Індивідуальні онлайн-уроки з усіх предметів для 1–11 класів та системна підготовка до НМТ 2027. Перше діагностичне заняття — 0 грн без зобов'язань. 1000+ учнів склали іспити.">
   <meta name="keywords" content="репетитор онлайн, підготовка до НМТ 2027, репетитор математика, англійська мова онлайн, Soltys репетиторство, ДПА 9 клас">
@@ -92,7 +99,7 @@ html_content = r'''<!DOCTYPE html>
     body {
       font-family: var(--font-sans);
       color: var(--slate-800);
-      background-color: var(--slate-50);
+      background-color: var(--navy-900); color-scheme: dark;
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
