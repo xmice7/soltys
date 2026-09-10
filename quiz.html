@@ -2034,16 +2034,66 @@
     <div class="wrap header-inner">
       <a href="index.html" class="brand" aria-label="Soltys Головна">
         <div class="brand-logo-icon">
-          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
             <path d="M6 12v5c3 3 9 3 12 0v-5"/>
           </svg>
         </div>
         <span class="brand-title" style="color:#fff;">Soltys<span>.</span></span>
       </a>
-      <a href="index.html" class="btn btn-outline btn-sm" style="color:#fff; border-color:rgba(255,255,255,0.2);">← На головну</a>
+
+      <nav class="main-nav" aria-label="Головна навігація">
+        <ul class="nav-links">
+          <li><a href="index.html#gradesSection" class="nav-link">1–11 класи</a></li>
+          <li><a href="math.html" class="nav-link">Математика</a></li>
+          <li><a href="ukr.html" class="nav-link">Українська</a></li>
+          <li><a href="english.html" class="nav-link">Англійська</a></li>
+          <li><a href="history.html" class="nav-link">Історія</a></li>
+          <li><a href="quiz.html" class="nav-link active" style="color:#fbbf24; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.35); border-radius:20px; padding:6px 14px;">⚡ Тест знань</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-cta">
+        <a href="index.html" class="btn btn-outline btn-sm" style="color:#fff; border-color:rgba(255,255,255,0.25);">← На головну</a>
+        <button class="menu-toggle" id="menuToggleBtn" aria-label="Відкрити меню">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-head">
+      <div class="brand">
+        <div class="brand-logo-icon">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <span class="brand-title" style="color:#fff;">Soltys<span>.</span></span>
+      </div>
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Закрити меню">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-menu-nav">
+      <a href="index.html" style="color:#fbbf24; font-weight:700;">🏠 На головну <span>→</span></a>
+      <a href="index.html#gradesSection">Програми 1–11 класів <span>→</span></a>
+      <a href="math.html">Математика (НМТ 2027) <span>→</span></a>
+      <a href="ukr.html">Українська мова <span>→</span></a>
+      <a href="english.html">Англійська мова <span>→</span></a>
+      <a href="history.html">Історія України <span>→</span></a>
+    </nav>
+  </div>
 
   <main class="quiz-container">
     <div class="quiz-card">
@@ -2134,6 +2184,28 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+
+      const menuToggleBtn = document.getElementById('menuToggleBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileMenuClose = document.getElementById('mobileMenuClose');
+      function openMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      if (menuToggleBtn && mobileMenu) menuToggleBtn.addEventListener('click', openMenu);
+      if (mobileMenuClose && mobileMenu) mobileMenuClose.addEventListener('click', closeMenu);
+      if (mobileMenu) {
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+      }
+
       const inp = document.getElementById('quizContact');
       if (inp) {
         inp.addEventListener('input', () => {

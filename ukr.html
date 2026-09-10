@@ -1955,46 +1955,78 @@
         align-items: flex-start;
       }
     }
+
+    #heroParticlesCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.6;
+    }
+    .grade-selector-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 30px 0 40px;
+    }
+    .grade-tab-btn {
+      background: rgba(23, 32, 51, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 10px 18px;
+      color: #94a3b8;
+      font-size: 14.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      min-height: 44px;
+    }
+    .grade-tab-btn:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fff;
+    }
+    .grade-tab-btn.active {
+      background: #f59e0b;
+      color: #050811;
+      border-color: #f59e0b;
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35);
+      transform: scale(1.04);
+    }
+    .grade-detail-card {
+      background: rgba(23, 32, 51, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 28px;
+      padding: 36px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
   
-
-  .subpage-hero {
-    padding: 160px 0 80px;
-    position: relative;
-  }
-  .subpage-hero h1 {
-    font-size: clamp(2.4rem, 2rem + 2.5vw, 3.8rem);
-    line-height: 1.15;
-    margin-bottom: 20px;
-  }
-  .topic-card {
-    background: rgba(23, 32, 51, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 20px;
-    padding: 28px;
-    transition: transform 0.25s ease, border-color 0.25s ease;
-  }
-  .topic-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(245, 158, 11, 0.4);
-  }
-  .formula-box {
-    background: rgba(10, 15, 29, 0.85);
-    border: 1px dashed rgba(245, 158, 11, 0.4);
-    border-radius: 14px;
-    padding: 16px 20px;
-    font-family: 'Literata', serif;
-    font-size: 16px;
-    color: #fbbf24;
-    margin: 16px 0;
-  }
-  .nav-quiz-badge {
-    background: rgba(245, 158, 11, 0.15) !important;
-    border: 1px solid rgba(245, 158, 11, 0.4) !important;
-    color: #fbbf24 !important;
-    border-radius: 20px !important;
-    padding: 6px 14px !important;
-  }
-
+    .subpage-hero {
+      padding: 150px 0 70px;
+      position: relative;
+    }
+    .subpage-hero h1 {
+      font-size: clamp(2.3rem, 1.8rem + 2.4vw, 3.8rem);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .topic-card {
+      background: rgba(23, 32, 51, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 28px;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .topic-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
   </style>
 </head>
 <body>
@@ -2012,12 +2044,13 @@
 
       <nav class="main-nav" aria-label="Головна навігація">
         <ul class="nav-links">
-          <li><a href="index.html" class="nav-link">Головна</a></li>
+          <li><a href="index.html#gradesSection" class="nav-link">1–11 класи</a></li>
           <li><a href="math.html" class="nav-link ">Математика</a></li>
-          <li><a href="ukr.html" class="nav-link active">Українська мова</a></li>
+          <li><a href="ukr.html" class="nav-link active">Українська</a></li>
           <li><a href="english.html" class="nav-link ">Англійська</a></li>
-          <li><a href="history.html" class="nav-link ">Історія України</a></li>
-          <li><a href="quiz.html" class="nav-link nav-quiz-badge ">⚡ Тест знань</a></li>
+          <li><a href="history.html" class="nav-link ">Історія</a></li>
+          <li><a href="index.html#calculator" class="nav-link">Калькулятор</a></li>
+          <li><a href="quiz.html" class="nav-link" style="color:#fbbf24; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.35); border-radius:20px; padding:6px 14px;">⚡ Тест знань</a></li>
         </ul>
       </nav>
 
@@ -2034,9 +2067,53 @@
           0 800 33 00 00
         </a>
         <button class="btn btn-primary btn-sm btn-shimmer open-modal-trigger">Пробний урок</button>
+        <button class="menu-toggle" id="menuToggleBtn" aria-label="Відкрити меню">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Universal Mobile Drawer Menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-head">
+      <div class="brand">
+        <div class="brand-logo-icon">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <span class="brand-title" style="color:#fff;">Soltys<span>.</span></span>
+      </div>
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Закрити меню">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-menu-nav">
+      <a href="quiz.html" style="color:#fbbf24; font-weight:700;">⚡ Пройти тест знань <span>→</span></a>
+      <a href="index.html#gradesSection">Програми 1–11 класів <span>→</span></a>
+      <a href="math.html">Математика (НМТ 2027) <span>→</span></a>
+      <a href="ukr.html">Українська мова <span>→</span></a>
+      <a href="english.html">Англійська мова <span>→</span></a>
+      <a href="history.html">Історія України <span>→</span></a>
+      <a href="index.html#calculator">Калькулятор вартості <span>→</span></a>
+      <a href="index.html#advantages">Чому Soltys <span>→</span></a>
+      <a href="index.html#teachers">Викладачі <span>→</span></a>
+      <a href="index.html#faq">Часті запитання <span>→</span></a>
+    </nav>
+    <div class="mobile-menu-foot">
+      <a href="tel:0800330000" class="btn btn-outline btn-block" style="color:#fff; border-color:rgba(255,255,255,0.25); margin-bottom:12px;">📞 0 800 33 00 00</a>
+      <button class="btn btn-primary btn-block btn-shimmer open-modal-trigger">Безкоштовний пробний урок</button>
+    </div>
+  </div>
 
   <main>
     <section class="subpage-hero">
@@ -2154,7 +2231,7 @@
       </div>
     </div>
   </footer>
-  <!-- Modal Booking -->
+  <!-- Modal Booking Window -->
   <div class="modal-backdrop" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-window">
       <div class="sheet-grabber"></div>
@@ -2178,7 +2255,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Клас та предмет</label>
-            <select id="modalSubject" style="width:100%; background:rgba(10,15,29,0.8); border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:12px; padding:14px; font-size:15px;">
+            <select id="modalSubject" style="width:100%; background:rgba(10,15,29,0.9); border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:12px; padding:14px; font-size:15px;">
               <option value="math">Математика (1–11 класи / НМТ 2027)</option>
               <option value="ukr">Українська мова (1–11 класи / НМТ 2027)</option>
               <option value="eng">Англійська мова (A1–B2 / НМТ 2027)</option>
@@ -2192,7 +2269,7 @@
       <div class="form-success" id="modalSuccess" style="display:none; text-align:center; padding: 30px 10px;">
         <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(16,185,129,0.2); border: 2px solid #10b981; display:flex; align-items:center; justify-content:center; margin: 0 auto 16px; color:#10b981; font-size:28px;">✓</div>
         <h3 style="color:#ffffff; font-size: 22px; margin-bottom: 8px;">Заявку прийнято!</h3>
-        <p style="color:#94a3b8; font-size: 14.5px;">Методист Soltys зв'яжеться з вами протягом 15 хвилин для узгодження зручного часу діагностичного уроку.</p>
+        <p style="color:#94a3b8; font-size: 14.5px;">Методист Soltys зв'яжеться з вами протягом 15 хвилин для узгодження зручного часу заняття.</p>
       </div>
     </div>
   </div>
@@ -2208,17 +2285,44 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Modal Handlers
+      // Mobile Drawer Menu logic
+      const menuToggleBtn = document.getElementById('menuToggleBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileMenuClose = document.getElementById('mobileMenuClose');
+      function openMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      if (menuToggleBtn && mobileMenu) menuToggleBtn.addEventListener('click', openMenu);
+      if (mobileMenuClose && mobileMenu) mobileMenuClose.addEventListener('click', closeMenu);
+      if (mobileMenu) {
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+      }
+
+      // Modal Booking logic
       const modal = document.getElementById('bookingModal');
       const modalTriggers = document.querySelectorAll('.open-modal-trigger');
       const modalCloseBtn = document.getElementById('modalCloseBtn');
       function openModal() {
-        modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
+        if (mobileMenu && mobileMenu.classList.contains('open')) closeMenu();
+        if (modal) {
+          modal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
       }
       function closeModal() {
-        modal.classList.remove('open');
-        document.body.style.overflow = '';
+        if (modal) {
+          modal.classList.remove('open');
+          document.body.style.overflow = '';
+        }
       }
       modalTriggers.forEach(btn => btn.addEventListener('click', openModal));
       if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
@@ -2226,12 +2330,15 @@
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
       }
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal && modal.classList.contains('open')) closeModal();
+        if (e.key === 'Escape') {
+          if (modal && modal.classList.contains('open')) closeModal();
+          if (mobileMenu && mobileMenu.classList.contains('open')) closeMenu();
+        }
       });
 
-      // Phone formatting & form validation
+      // Phone Input Mask
       function formatPhone(inp) {
-        inp.addEventListener('input', (e) => {
+        inp.addEventListener('input', () => {
           let val = inp.value;
           if (val.startsWith('@') || /^[A-Za-z]/.test(val)) return;
           let oldLen = val.length;
@@ -2254,6 +2361,7 @@
       const modalContact = document.getElementById('modalContact');
       if (modalContact) formatPhone(modalContact);
 
+      // Lead Form Submit
       const mForm = document.getElementById('modalLeadForm');
       if (mForm) {
         mForm.addEventListener('submit', (e) => {
