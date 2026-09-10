@@ -2007,14 +2007,7 @@
     }
 
 
-    /* CRITICAL MOBILE POLISH (iPhone & Small Screens) */
-    @media (max-width: 860px) {
-      .floating-telegram-btn {
-        display: none !important; /* Hide duplicate floating button on mobile since it's already in sticky bar */
-      }
-      .scroll-progress-bar, #scrollProgressBar {
-        display: none !important;
-      }
+    
     }
 
     @media (max-width: 640px) {
@@ -2083,6 +2076,292 @@
         font-size: 26px !important;
       }
     }
+
+
+
+    /* ============================================================
+       UNIVERSAL RESPONSIVE SYSTEM — ALL DEVICES
+       iPhone SE (375px) → iPhone Pro Max (430px) → iPad (768px)
+       → iPad Pro (1024px) → Laptop (1280px) → Desktop (1920px+)
+       ============================================================ */
+
+    /* ---- GLOBAL: Box-sizing reset for all elements ---- */
+    *, *::before, *::after {
+      box-sizing: border-box !important;
+    }
+
+    /* ---- Force no horizontal overflow on any screen ---- */
+    html, body {
+      overflow-x: hidden !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+    }
+
+    /* ---- TABLET & SMALLER (≤860px): hamburger menu, hide desktop nav ---- */
+    @media (max-width: 860px) {
+      .main-nav, .header-phone {
+        display: none !important;
+      }
+      .menu-toggle {
+        display: flex !important;
+      }
+      .floating-telegram-btn {
+        display: none !important;
+      }
+      .scroll-progress-bar, .scroll-progress-container, #scrollProgressBar {
+        display: none !important;
+      }
+      .mobile-sticky-bar {
+        display: block !important;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+      }
+      .hero-visual {
+        max-width: 500px !important;
+        margin: 0 auto !important;
+      }
+      .result-content {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+      }
+      .tracks-grid, .teachers-grid, .cases-grid {
+        grid-template-columns: 1fr !important;
+        max-width: 580px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      .bento-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .col-7, .col-5, .col-4, .col-8 {
+        grid-column: span 1 !important;
+      }
+      .steps-row {
+        grid-template-columns: 1fr !important;
+      }
+      .final-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .trust-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .trust-item {
+        border-right: none !important;
+        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+        padding-bottom: 20px !important;
+      }
+      .trust-item:last-child {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+      }
+    }
+
+    /* ---- PHONES (≤640px): compact layout, full-width elements ---- */
+    @media (max-width: 640px) {
+      .wrap {
+        padding: 0 16px !important;
+      }
+      .hero {
+        padding: 110px 0 50px !important;
+      }
+      .hero h1 {
+        font-size: clamp(1.8rem, 6vw, 2.6rem) !important;
+        line-height: 1.15 !important;
+      }
+      section {
+        padding-top: 50px !important;
+        padding-bottom: 50px !important;
+      }
+      .section-head h2 {
+        font-size: clamp(1.4rem, 5vw, 2rem) !important;
+      }
+
+      /* -- Buttons: allow text wrapping, Apple-standard 44px touch targets -- */
+      .btn {
+        white-space: normal !important;
+        word-break: break-word !important;
+        text-align: center !important;
+        max-width: 100% !important;
+        min-height: 44px !important;
+      }
+
+      /* -- Calculator section: fully contained on mobile -- */
+      .calc-section {
+        padding: 50px 0 !important;
+      }
+      .calc-card {
+        padding: 20px 14px !important;
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .calc-pill-group {
+        margin-bottom: 20px !important;
+      }
+      .calc-pills {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        border-radius: 14px !important;
+        padding: 4px !important;
+        gap: 4px !important;
+      }
+      .calc-pill {
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 10px 14px !important;
+        font-size: 13.5px !important;
+        min-height: 44px !important;
+      }
+      .calc-result-box {
+        padding: 18px 14px !important;
+        border-radius: 16px !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        margin-top: 24px !important;
+        word-break: break-word !important;
+      }
+      .result-content {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+      }
+      .result-content h4 {
+        font-size: 17px !important;
+        line-height: 1.3 !important;
+        word-break: break-word !important;
+      }
+      .result-content p {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        word-break: break-word !important;
+      }
+      .result-highlights {
+        padding: 14px !important;
+        width: 100% !important;
+        overflow: hidden !important;
+      }
+      .res-badge {
+        font-size: 13px !important;
+        word-break: break-word !important;
+      }
+
+      /* -- Lead form box -- */
+      .lead-box {
+        padding: 24px 16px !important;
+      }
+
+      /* -- Floating badges: contain within viewport -- */
+      .badge-top, .badge-bottom, .float-badge {
+        position: relative !important;
+        right: auto !important;
+        left: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        display: inline-block !important;
+        margin: 4px !important;
+      }
+
+      /* -- Comparison table: horizontal scroll -- */
+      .comparison-wrap {
+        padding: 20px 12px !important;
+        overflow-x: auto !important;
+      }
+      .comparison-table {
+        min-width: 540px !important;
+      }
+
+      /* -- Footer -- */
+      .footer-top {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 20px !important;
+      }
+      .footer-bottom {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+      }
+      .footer-links {
+        flex-wrap: wrap !important;
+      }
+
+      /* -- 1-11 Grade Selector -- */
+      .grade-selector-tabs {
+        gap: 6px !important;
+        margin: 20px 0 30px !important;
+      }
+      .grade-tab-btn {
+        padding: 8px 12px !important;
+        font-size: 12.5px !important;
+      }
+      .grade-detail-card {
+        padding: 20px 14px !important;
+        border-radius: 20px !important;
+      }
+      .grade-grid-responsive {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+      }
+
+      /* -- Subpage hero -- */
+      .subpage-hero {
+        padding: 120px 0 50px !important;
+      }
+      .subpage-hero h1 {
+        font-size: clamp(1.6rem, 5.5vw, 2.4rem) !important;
+      }
+
+      /* -- Sticky bar safe area -- */
+      .mobile-sticky-bar {
+        padding: 12px 14px calc(16px + env(safe-area-inset-bottom, 8px)) !important;
+      }
+
+      /* -- Topic cards on subpages -- */
+      .topic-card {
+        padding: 20px 16px !important;
+      }
+    }
+
+    /* ---- EXTRA-SMALL PHONES (≤380px): iPhone SE, Galaxy S series ---- */
+    @media (max-width: 380px) {
+      .wrap {
+        padding: 0 12px !important;
+      }
+      .hero h1 {
+        font-size: 1.6rem !important;
+      }
+      .header-inner {
+        gap: 8px !important;
+      }
+      .btn-sm {
+        padding: 8px 14px !important;
+        font-size: 13px !important;
+      }
+      .grade-tab-btn {
+        padding: 7px 10px !important;
+        font-size: 11.5px !important;
+      }
+      .calc-pill {
+        font-size: 12.5px !important;
+        padding: 8px 10px !important;
+      }
+    }
+
+    /* ---- iOS SAFE AREAS ---- */
+    @supports (padding: env(safe-area-inset-top)) {
+      .site-header {
+        padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important;
+      }
+    }
+
 
   
     .subpage-hero {
