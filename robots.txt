@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://xmice7.github.io/soltys/sitemap.xml

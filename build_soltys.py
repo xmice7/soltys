@@ -1967,7 +1967,74 @@ html_content = r'''<!DOCTYPE html>
         align-items: flex-start;
       }
     }
+
+    #heroParticlesCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.6;
+    }
+    .grade-selector-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 30px 0 40px;
+    }
+    .grade-tab-btn {
+      background: rgba(23, 32, 51, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 10px 18px;
+      color: #94a3b8;
+      font-size: 14.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      min-height: 44px;
+    }
+    .grade-tab-btn:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fff;
+    }
+    .grade-tab-btn.active {
+      background: #f59e0b;
+      color: #050811;
+      border-color: #f59e0b;
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35);
+      transform: scale(1.04);
+    }
+    .grade-detail-card {
+      background: rgba(23, 32, 51, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 28px;
+      padding: 36px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Soltys",
+    "description": "Онлайн-центр індивідуального навчання 1–11 класів та підготовки до НМТ 2027",
+    "url": "https://xmice7.github.io/soltys/",
+    "telephone": "0800330000",
+    "priceRange": "від 340 грн",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "UA"
+    }
+  }
+  </script>
+
 </head>
 <body>
   <div id="scrollProgressBar" class="scroll-progress-bar" aria-hidden="true"></div>
@@ -2048,6 +2115,7 @@ html_content = r'''<!DOCTYPE html>
   </div>
   <main>
     <section class="hero">
+    <canvas id="heroParticlesCanvas" aria-hidden="true"></canvas>
       <div class="wrap hero-grid">
         <div class="hero-content">
           <div class="hero-tag">
@@ -2178,6 +2246,61 @@ html_content = r'''<!DOCTYPE html>
         </div>
       </div>
     </section>
+    
+    <!-- 1–11 Grades Comprehensive Dynamic Section -->
+    <section class="tracks" id="gradesSection" style="padding: 60px 0 90px;">
+      <div class="wrap">
+        <div class="section-head" style="text-align:center; max-width:740px; margin:0 auto 20px;">
+          <span class="badge">Усі класи 1–11</span>
+          <h2>Індивідуальна програма для кожного класу</h2>
+          <p style="color:#94a3b8; font-size:16.5px; margin-top:12px;">Оберіть клас вашої дитини, щоб побачити точний фокус навчання, психологічні особливості віку та очікувані результати.</p>
+        </div>
+
+        <div class="grade-selector-tabs" id="gradeTabsContainer">
+          <!-- Grade Pills 1-11 dynamically generated/switched -->
+          <button class="grade-tab-btn active" data-grade="1">1 клас</button>
+          <button class="grade-tab-btn" data-grade="2">2 клас</button>
+          <button class="grade-tab-btn" data-grade="3">3 клас</button>
+          <button class="grade-tab-btn" data-grade="4">4 клас</button>
+          <button class="grade-tab-btn" data-grade="5">5 клас</button>
+          <button class="grade-tab-btn" data-grade="6">6 клас</button>
+          <button class="grade-tab-btn" data-grade="7">7 клас</button>
+          <button class="grade-tab-btn" data-grade="8">8 клас</button>
+          <button class="grade-tab-btn" data-grade="9">9 клас (ДПА)</button>
+          <button class="grade-tab-btn" data-grade="10">10 клас</button>
+          <button class="grade-tab-btn" data-grade="11">11 клас (НМТ 2027)</button>
+        </div>
+
+        <div class="grade-detail-card" id="gradeDetailCard">
+          <div style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap:36px; align-items:center;" class="grade-grid-responsive">
+            <div>
+              <span class="badge" id="gradeBadge" style="margin-bottom:12px; display:inline-block;">⚡ 1 клас: М'який старт</span>
+              <h3 id="gradeTitle" style="color:#ffffff; font-size:26px; margin-bottom:12px;">Навчання в ігровій формі без сліз та стресу</h3>
+              <p id="gradeDesc" style="color:#94a3b8; font-size:15.5px; line-height:1.6; margin-bottom:24px;">Формуємо інтерес до знань, розвиваємо логіку та усний рахунок. Дитина вчиться з радістю і без примусу з боку батьків.</p>
+              
+              <div style="font-weight:700; color:#fff; font-size:14.5px; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Ключові напрямки підготовки:</div>
+              <ul id="gradeModulesList" style="list-style:none; padding:0; margin:0 0 28px; display:grid; gap:10px;">
+                <!-- Dynamically populated -->
+              </ul>
+
+              <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+                <button class="btn btn-primary btn-shimmer open-modal-trigger" id="gradeCtaBtn" style="padding:14px 28px; font-size:15.5px;">Записатися на пробний урок (0 грн) →</button>
+                <a href="quiz.html" class="btn btn-outline" style="padding:14px 22px; font-size:15px; color:#fff; border-color:rgba(255,255,255,0.25);">⚡ Пройти тест для класу</a>
+              </div>
+            </div>
+
+            <div style="background:rgba(10,15,29,0.7); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:28px;">
+              <div style="font-size:12.5px; color:#f59e0b; font-weight:700; text-transform:uppercase; margin-bottom:8px;">Рекомендований графік:</div>
+              <div id="gradePace" style="color:#ffffff; font-size:18px; font-weight:700; margin-bottom:18px;">2 заняття на тиждень по 40 хв</div>
+
+              <div style="font-size:12.5px; color:#10b981; font-weight:700; text-transform:uppercase; margin-bottom:8px;">Очікуваний результат за 3 місяці:</div>
+              <div id="gradeResult" style="color:#94a3b8; font-size:14.5px; line-height:1.5;">Дитина впевнено рахує в межах 20, читає прості тексти та самостійно сідає за домашні завдання.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="tracks" id="subjects">
       <div class="wrap">
         <div class="section-head center reveal-on-scroll">
@@ -3280,6 +3403,191 @@ html_content = r'''<!DOCTYPE html>
         }, { threshold: 0.15 });
         stickyObs.observe(finalSection);
       }
+
+      // ------------------------------------------------------------------------
+      // Interactive Canvas Particles (Constellation effect)
+      // ------------------------------------------------------------------------
+      const canvas = document.getElementById('heroParticlesCanvas');
+      if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = canvas.parentElement.offsetWidth;
+        let height = canvas.height = canvas.parentElement.offsetHeight;
+        window.addEventListener('resize', () => {
+          if (!canvas.parentElement) return;
+          width = canvas.width = canvas.parentElement.offsetWidth;
+          height = canvas.height = canvas.parentElement.offsetHeight;
+        });
+        const particles = [];
+        const count = Math.min(35, Math.floor(width / 30));
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            radius: Math.random() * 1.5 + 1
+          });
+        }
+        function renderParticles() {
+          ctx.clearRect(0, 0, width, height);
+          ctx.fillStyle = 'rgba(245, 158, 11, 0.4)';
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+            if (p.y < 0) p.y = height;
+            if (p.y > height) p.y = 0;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+              if (dist < 100) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+              }
+            }
+          }
+          requestAnimationFrame(renderParticles);
+        }
+        renderParticles();
+      }
+
+      // ------------------------------------------------------------------------
+      // Dynamic 1-11 Grades Interactive Switcher Data
+      // ------------------------------------------------------------------------
+      const gradesData = {
+        1: {
+          badge: "⚡ 1 клас: М'який старт",
+          title: "Навчання в ігровій формі без сліз та стресу",
+          desc: "Формуємо інтерес до знань, розвиваємо логіку та усний рахунок. Дитина вчиться з радістю і без примусу з боку батьків.",
+          modules: ["Ігрова математика та просторова орієнтація", "Швидкочитання та розуміння простих текстів", "Розвиток концентрації та дрібної моторики", "Адаптація до шкільного формату"],
+          pace: "2 заняття на тиждень по 40 хв",
+          result: "Дитина впевнено рахує в межах 20, читає прості тексти та самостійно сідає за перші домашні завдання."
+        },
+        2: {
+          badge: "⚡ 2 клас: Впевнена база",
+          title: "Таблиця множення без зубріння та зв'язне мовлення",
+          desc: "Пояснюємо логіку математичних дій, вчимо грамотному письму та розвиваємо швидкість мислення.",
+          modules: ["Таблиця множення на асоціаціях і візуальних картках", "Основи правопису та грамотне мовлення", "Розв'язання задач на 2-3 дії", "Формування навички самостійної роботи"],
+          pace: "2 заняття на тиждень по 45 хв",
+          result: "Батьки перестають сидіти над уроками вечорами — дитина розуміє умови задач сама."
+        },
+        3: {
+          badge: "⚡ 3 клас: Швидкість та логіка",
+          title: "Аналітичне мислення та перша англійська база",
+          desc: "Позатабличне множення, складні задачі, частини мови та активне подолання мовного бар'єру.",
+          modules: ["Множення та ділення багатоцифрових чисел", "Частини мови та розбір структури речення", "Робота з великими текстами та переказ", "Базова розмовна англійська (A1)"],
+          pace: "2 заняття на тиждень по 50 хв",
+          result: "Оцінки у щоденнику зростають на 2–3 бали, розвивається швидкість усного рахунку та читання."
+        },
+        4: {
+          badge: "⚡ 4 клас: Перехід у середню школу",
+          title: "Підготовка до навантаження 5 класу та зміна вчителів",
+          desc: "Узагальнення знань початкової школи, впевнена робота з дробами, складні рівняння та психологічна готовність.",
+          modules: ["Дроби, задачі на рух та обчислення площі", "Морфологічний аналіз слів та орфографія", "Підготовка до зміни вчителів у 5 класі", "Англійська граматика: базові часи"],
+          pace: "2–3 заняття на тиждень по 50 хв",
+          result: "Дитина без стресу та без падіння оцінок адаптується до вимог 5 класу."
+        },
+        5: {
+          badge: "⚡ 5 клас: Адаптація до предметів",
+          title: "Системність у нових предметах та математика",
+          desc: "Поява багатьох нових предметів та різних викладачів. Усунення прогалин у математиці та мовах.",
+          modules: ["Звичайні та десяткові дроби, відсотки", "Синтаксис складного речення та пунктуація", "Основи природознавства та історії", "Англійська A2: розмовна впевненість"],
+          pace: "2–3 заняття на тиждень по 60 хв",
+          result: "Збереження високого середнього балу попри зростання кількості предметів утричі."
+        },
+        6: {
+          badge: "⚡ 6 клас: Фундамент точних наук",
+          title: "Раціональні числа, пропорції та самостійність",
+          desc: "Закладаємо міцну основу перед початком вивчення окремої алгебри та геометрії у 7 класі.",
+          modules: ["Від'ємні числа, модуль, координатна площина", "Рівняння з пропорціями та відсотками", "Культура українського мовлення", "Англійська граматика A2+"],
+          pace: "2–3 заняття на тиждень по 60 хв",
+          result: "Складні теми більше не лякають, дитина впевнено відповідає біля дошки."
+        },
+        7: {
+          badge: "⚡ 7 клас: Алгебра, Геометрія, Фізика",
+          title: "Старт складних точних дисциплін без паніки",
+          desc: "Один із найважчих періодів у школі. Пояснюємо формули скороченого множення, теореми та закони фізики наочно.",
+          modules: ["Алгебра: формули скороченого множення, системи", "Геометрія: трикутники, перші доведення", "Фізика з нуля: механіка, маса, густина", "Поглиблена англійська B1"],
+          pace: "3 заняття на тиждень по 60 хв",
+          result: "Нові точні предмети стають зрозумілими, а не джерелом стресу та сварок через оцінки."
+        },
+        8: {
+          badge: "⚡ 8 клас: База майбутнього НМТ",
+          title: "Квадратні рівняння, теорема Піфагора та хімія",
+          desc: "Глибоке закріплення тем, які складають 50% завдань випускних іспитів. Вчимося розв'язувати задачі системно.",
+          modules: ["Алгебра: квадратні рівняння, теорема Вієта", "Геометрія: площі фігур, теорема Піфагора", "Хімія: неорганічні класи речовин", "Фізика: теплові та електричні явища"],
+          pace: "3 заняття на тиждень по 60 хв",
+          result: "Сформована міцна база, яка забезпечить легкий старт підготовки до НМТ у старших класах."
+        },
+        9: {
+          badge: "⚡ 9 клас: ДПА та профорієнтація",
+          title: "Успішне ДПА на 10–12 балів та вибір профілю",
+          desc: "Повний підсумок базової середньої освіти, підготовка до іспитів та визначення стратегії на старшу школу.",
+          modules: ["Квадратичні нерівності, прогресії", "Вектори, тригонометрія та коло", "Підготовка до ДПА з математики та мови", "Профорієнтація та діагностика схильностей"],
+          pace: "3–4 заняття на тиждень по 60 хв",
+          result: "Успішне складання ДПА на 10–12 балів та впевненість у виборі подальшого напрямку."
+        },
+        10: {
+          badge: "⚡ 10 клас: Завчасний старт НМТ 2027",
+          title: "70% програми НМТ без авралів та вигорання",
+          desc: "Спокійна планомірна підготовка. Стереометрія, тригонометрія, поглиблена історія України ще до 11 класу.",
+          modules: ["Стереометрія: прямі та площини у просторі", "Тригонометрія, логарифми та показникові рівняння", "Історія України: початок XX ст. — Друга світова", "Англійська B2: тести формату НМТ"],
+          pace: "3–4 заняття на тиждень по 60 хв",
+          result: "Пройдено 70% програми НМТ завчасно, що знижує стрес в 11 класі на 80%."
+        },
+        11: {
+          badge: "🎯 11 клас: Інтенсив НМТ 2027",
+          title: "Стратегія 185+ балів та вступ на бюджет",
+          desc: "Цілеспрямоване натаскування на тести НМТ 2027, написання пробних сесій щомісяця, техніка розв'язання тестів за 60 секунд.",
+          modules: ["Похідна, інтеграл, комбінаторика, ймовірність", "Історія України: повний таймлайн 1939–2027 рр.", "Українська мова: пастки наголосів та синтаксису", "Щомісячні симуляції НМТ на реальних бланках"],
+          pace: "3–5 занять на тиждень по 60–90 хв",
+          result: "Гарантований бал 180–195+ та вступ на бюджет у бажаний університет."
+        }
+      };
+
+      const gradeBtns = document.querySelectorAll('.grade-tab-btn');
+      const gradeBadge = document.getElementById('gradeBadge');
+      const gradeTitle = document.getElementById('gradeTitle');
+      const gradeDesc = document.getElementById('gradeDesc');
+      const gradeModulesList = document.getElementById('gradeModulesList');
+      const gradePace = document.getElementById('gradePace');
+      const gradeResult = document.getElementById('gradeResult');
+
+      function updateGradeCard(gradeNum) {
+        const data = gradesData[gradeNum];
+        if (!data) return;
+        gradeBadge.textContent = data.badge;
+        gradeTitle.textContent = data.title;
+        gradeDesc.textContent = data.desc;
+        gradePace.textContent = data.pace;
+        gradeResult.textContent = data.result;
+        gradeModulesList.innerHTML = data.modules.map(m => `
+          <li style="display:flex; align-items:center; gap:10px; color:#e2e8f0; font-size:14.5px;">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            ${m}
+          </li>
+        `).join('');
+      }
+
+      gradeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          gradeBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const grade = btn.getAttribute('data-grade');
+          updateGradeCard(grade);
+        });
+      });
+      // Initialize 1 grade
+      updateGradeCard(1);
+
     });
   </script>
 </body>
