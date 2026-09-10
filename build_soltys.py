@@ -1807,13 +1807,9 @@ html_content = r'''<!DOCTYPE html>
       to { opacity: 1; transform: translateY(0); }
     }
     .reveal-on-scroll {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-on-scroll.revealed {
       opacity: 1;
       transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     @media (prefers-reduced-transparency: reduce) {
       .site-header.scrolled,
@@ -2375,6 +2371,22 @@ html_content = r'''<!DOCTYPE html>
     }
 
 
+
+    @media (max-width: 640px) {
+      section, .calc-section, .why-section, .teachers, .cases-section, .steps-section, .faq-section, .tracks {
+        padding: 40px 0 !important;
+      }
+      .hero {
+        padding: 95px 0 40px !important;
+      }
+      .section-head {
+        margin-bottom: 24px !important;
+      }
+      .calc-card, .grade-detail-card, .dashboard-card {
+        margin-top: 10px !important;
+      }
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -2455,7 +2467,7 @@ html_content = r'''<!DOCTYPE html>
         </svg>
       </button>
     </div>
-                        <nav class="mobile-menu-nav">
+                            <nav class="mobile-menu-nav">
       <a href="quiz.html" style="color:#fbbf24; font-weight:700;">⚡ Пройти тест знань <span>→</span></a>
       <a href="#gradesSection">Програми 1–11 класів <span>→</span></a>
       <a href="math.html">Математика (НМТ 2027) <span>→</span></a>
@@ -3375,8 +3387,11 @@ html_content = r'''<!DOCTYPE html>
   </script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      )`;
-        }
+      const header = document.getElementById('siteHeader');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sections = document.querySelectorAll('main section[id]');
+      function handleScroll() {
+        const scrollY = window.scrollY;
         if (scrollY > 30) {
           header.classList.add('scrolled');
         } else {
