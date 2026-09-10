@@ -98,7 +98,7 @@ html_content = r'''<!DOCTYPE html>
     }
     body {
       font-family: var(--font-sans);
-      color: var(--slate-800);
+      color: var(--white);
       background-color: var(--navy-900); color-scheme: dark;
       line-height: 1.6;
       overflow-x: hidden;
@@ -126,7 +126,7 @@ html_content = r'''<!DOCTYPE html>
     }
     h1, h2, h3, h4, h5 {
       font-family: var(--font-serif);
-      color: var(--slate-900);
+      color: var(--white);
       line-height: 1.22;
       font-weight: 700;
       letter-spacing: -0.015em;
@@ -224,7 +224,7 @@ html_content = r'''<!DOCTYPE html>
     .section-head p {
       margin-top: 16px;
       font-size: 17.5px;
-      color: var(--slate-600);
+      color: rgba(255, 255, 255, 0.7);
       line-height: 1.65;
     }
     .btn {
@@ -260,7 +260,7 @@ html_content = r'''<!DOCTYPE html>
     }
     .btn-outline {
       background: transparent;
-      color: var(--slate-800);
+      color: var(--white);
       border: 1.5px solid var(--slate-300);
     }
     .btn-outline:hover {
@@ -757,8 +757,8 @@ html_content = r'''<!DOCTYPE html>
       border: 1px solid rgba(245, 158, 11, 0.3);
     }
     .trust-bar {
-      background: var(--white);
-      border-bottom: 1px solid var(--slate-200);
+      background: rgba(23, 32, 51, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding: 44px 0;
       box-shadow: var(--shadow-sm);
       position: relative;
@@ -780,7 +780,7 @@ html_content = r'''<!DOCTYPE html>
     .trust-num {
       font-size: clamp(2.2rem, 1.8rem + 1.2vw, 2.9rem);
       font-weight: 800;
-      color: var(--slate-900);
+      color: var(--white);
       line-height: 1;
       margin-bottom: 8px;
       display: flex;
@@ -794,13 +794,13 @@ html_content = r'''<!DOCTYPE html>
     }
     .trust-desc {
       font-size: 14.5px;
-      color: var(--slate-600);
+      color: rgba(255, 255, 255, 0.7);
       font-weight: 600;
       line-height: 1.45;
     }
     .tracks {
       padding: 100px 0;
-      background: var(--slate-50);
+      background: var(--navy-900);
     }
     .tracks-grid {
       display: grid;
@@ -808,10 +808,10 @@ html_content = r'''<!DOCTYPE html>
       gap: 30px;
     }
     .track-card {
-      background: var(--white);
+      background: rgba(23, 32, 51, 0.85);
       border-radius: var(--radius-xl);
       padding: 38px 32px;
-      border: 1px solid var(--slate-200);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
@@ -870,14 +870,14 @@ html_content = r'''<!DOCTYPE html>
     .track-stage {
       font-size: 13.5px;
       font-weight: 600;
-      color: var(--slate-500);
+      color: rgba(255, 255, 255, 0.6);
     }
     .track-card h3 {
       font-size: 24px;
       margin-bottom: 12px;
     }
     .track-card p {
-      color: var(--slate-600);
+      color: rgba(255, 255, 255, 0.7);
       font-size: 15.5px;
       line-height: 1.6;
       margin-bottom: 26px;
@@ -1038,7 +1038,7 @@ html_content = r'''<!DOCTYPE html>
       flex-shrink: 0;
     }
     .why-section {
-      background: var(--white);
+      background: var(--navy-900);
       padding: 100px 0;
     }
     .bento-grid {
@@ -1048,10 +1048,10 @@ html_content = r'''<!DOCTYPE html>
       margin-bottom: 60px;
     }
     .bento-card {
-      background: var(--slate-50);
+      background: var(--navy-800);
       border-radius: var(--radius-xl);
       padding: 36px 32px;
-      border: 1px solid var(--slate-200);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       flex-direction: column;
     }
@@ -1074,8 +1074,8 @@ html_content = r'''<!DOCTYPE html>
       width: 52px;
       height: 52px;
       border-radius: 14px;
-      background: var(--white);
-      border: 1px solid var(--slate-200);
+      background: rgba(23, 32, 51, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1093,15 +1093,15 @@ html_content = r'''<!DOCTYPE html>
       margin-bottom: 12px;
     }
     .bento-card p {
-      color: var(--slate-600);
+      color: rgba(255, 255, 255, 0.7);
       font-size: 15.5px;
       line-height: 1.6;
     }
     .comparison-wrap {
-      background: var(--slate-50);
+      background: var(--navy-800);
       border-radius: var(--radius-xl);
       padding: 40px;
-      border: 1px solid var(--slate-200);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     .comparison-header {
       text-align: center;
@@ -1119,12 +1119,12 @@ html_content = r'''<!DOCTYPE html>
     .comparison-table td {
       padding: 16px 20px;
       text-align: left;
-      border-bottom: 1px solid var(--slate-200);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     .comparison-table th {
       font-weight: 700;
-      color: var(--slate-900);
-      background: var(--white);
+      color: var(--white);
+      background: rgba(23, 32, 51, 0.7);
     }
     .comparison-table th.highlight,
     .comparison-table td.highlight {
@@ -1155,7 +1155,7 @@ html_content = r'''<!DOCTYPE html>
     }
     .teachers {
       padding: 100px 0;
-      background: var(--slate-50);
+      background: var(--navy-900);
     }
     .teachers-grid {
       display: grid;
@@ -1163,10 +1163,10 @@ html_content = r'''<!DOCTYPE html>
       gap: 30px;
     }
     .teacher-card {
-      background: var(--white);
+      background: rgba(23, 32, 51, 0.85);
       border-radius: var(--radius-xl);
       padding: 36px 30px;
-      border: 1px solid var(--slate-200);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
@@ -1218,10 +1218,10 @@ html_content = r'''<!DOCTYPE html>
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       padding: 14px;
-      background: var(--slate-50);
+      background: var(--navy-800);
       border-radius: var(--radius-md);
       margin-bottom: 20px;
-      border: 1px solid var(--slate-200);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     .t-stat {
       text-align: center;
@@ -1229,22 +1229,22 @@ html_content = r'''<!DOCTYPE html>
     .t-stat strong {
       display: block;
       font-size: 17px;
-      color: var(--slate-900);
+      color: var(--white);
       font-weight: 800;
     }
     .t-stat span {
       font-size: 12px;
-      color: var(--slate-500);
+      color: rgba(255, 255, 255, 0.6);
     }
     .teacher-card p {
       font-size: 15px;
-      color: var(--slate-600);
+      color: rgba(255, 255, 255, 0.7);
       line-height: 1.55;
       margin-bottom: 22px;
     }
     .cases-section {
       padding: 100px 0;
-      background: var(--white);
+      background: var(--navy-900);
     }
     .cases-grid {
       display: grid;
@@ -1252,10 +1252,10 @@ html_content = r'''<!DOCTYPE html>
       gap: 30px;
     }
     .case-card {
-      background: var(--slate-50);
+      background: var(--navy-800);
       border-radius: var(--radius-xl);
       padding: 34px 28px;
-      border: 1px solid var(--slate-200);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       flex-direction: column;
     }
@@ -1268,7 +1268,7 @@ html_content = r'''<!DOCTYPE html>
     .case-student {
       font-size: 17px;
       font-weight: 800;
-      color: var(--slate-900);
+      color: var(--white);
     }
     .case-subj-tag {
       font-size: 12.5px;
@@ -1318,28 +1318,28 @@ html_content = r'''<!DOCTYPE html>
       line-height: 1.5;
     }
     .case-destination strong {
-      color: var(--navy-900);
+      color: var(--white);
     }
     .case-review-quote {
       margin-top: auto;
       padding-top: 16px;
-      border-top: 1px solid var(--slate-200);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
       font-size: 14.5px;
-      color: var(--slate-600);
+      color: rgba(255, 255, 255, 0.7);
       font-style: italic;
       line-height: 1.55;
     }
     .case-author {
       display: block;
       font-weight: 700;
-      color: var(--slate-900);
+      color: var(--white);
       font-style: normal;
       font-size: 13.5px;
       margin-bottom: 4px;
     }
     .steps-section {
       padding: 100px 0;
-      background: var(--slate-50);
+      background: var(--navy-900);
     }
     .steps-row {
       display: grid;
@@ -1347,10 +1347,10 @@ html_content = r'''<!DOCTYPE html>
       gap: 24px;
     }
     .step-item {
-      background: var(--white);
+      background: rgba(23, 32, 51, 0.85);
       border-radius: var(--radius-lg);
       padding: 32px 24px;
-      border: 1px solid var(--slate-200);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: var(--shadow-sm);
       position: relative;
     }
@@ -1379,12 +1379,12 @@ html_content = r'''<!DOCTYPE html>
     }
     .step-item p {
       font-size: 14.5px;
-      color: var(--slate-600);
+      color: rgba(255, 255, 255, 0.7);
       line-height: 1.55;
     }
     .faq-section {
       padding: 100px 0;
-      background: var(--white);
+      background: var(--navy-900);
     }
     .faq-wrapper {
       max-width: 820px;
@@ -1420,7 +1420,7 @@ html_content = r'''<!DOCTYPE html>
       gap: 16px;
       font-size: 17.5px;
       font-weight: 700;
-      color: var(--slate-900);
+      color: var(--white);
       cursor: pointer;
     }
     .faq-chevron {
@@ -1441,7 +1441,7 @@ html_content = r'''<!DOCTYPE html>
     .faq-content-inner {
       padding: 0 26px 24px;
       font-size: 16px;
-      color: var(--slate-600);
+      color: rgba(255, 255, 255, 0.7);
       line-height: 1.65;
     }
     .final-section {
@@ -1930,7 +1930,7 @@ html_content = r'''<!DOCTYPE html>
       }
       .trust-item {
         border-right: none;
-        border-bottom: 1px solid var(--slate-200);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         padding-bottom: 20px;
       }
       .trust-item:last-child {
@@ -2455,7 +2455,7 @@ html_content = r'''<!DOCTYPE html>
         </svg>
       </button>
     </div>
-                <nav class="mobile-menu-nav">
+                        <nav class="mobile-menu-nav">
       <a href="quiz.html" style="color:#fbbf24; font-weight:700;">⚡ Пройти тест знань <span>→</span></a>
       <a href="#gradesSection">Програми 1–11 класів <span>→</span></a>
       <a href="math.html">Математика (НМТ 2027) <span>→</span></a>
