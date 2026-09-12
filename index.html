@@ -2381,6 +2381,167 @@
       }
     }
 
+
+    /* =========================================================================
+       HIGH-PERFORMANCE BUTTER-SMOOTH CSS ANIMATIONS & GPU ACCELERATION
+       ========================================================================= */
+
+    /* Smooth page scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Content visibility for off-screen rendering speed (zero scroll lag) */
+    .tracks, .why-section, .teachers, .cases-section, .steps-section, .faq-section {
+      content-visibility: auto;
+      contain-intrinsic-size: 800px;
+    }
+
+    /* Hardware compositing for sticky & fixed elements */
+    .site-header, .mobile-sticky-bar, .modal-overlay, .mobile-menu {
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    /* Ambient breathing background glow in hero */
+    @keyframes ambientBreathe {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translate3d(15px, -15px, 0) scale(1.08);
+        opacity: 1;
+      }
+    }
+
+    .hero::before {
+      animation: ambientBreathe 10s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+
+    .hero::after {
+      animation: ambientBreathe 12s ease-in-out infinite reverse;
+      will-change: transform, opacity;
+    }
+
+    /* Refined butter-smooth scroll reveals */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(24px) scale(0.985);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-on-scroll.revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Staggered card animations for fluid cascading entrance */
+    .tracks-grid .track-card:nth-child(1),
+    .teachers-grid .teacher-card:nth-child(1),
+    .cases-grid .case-card:nth-child(1),
+    .steps-row .step-item:nth-child(1) {
+      transition-delay: 0.05s;
+    }
+    .tracks-grid .track-card:nth-child(2),
+    .teachers-grid .teacher-card:nth-child(2),
+    .cases-grid .case-card:nth-child(2),
+    .steps-row .step-item:nth-child(2) {
+      transition-delay: 0.15s;
+    }
+    .tracks-grid .track-card:nth-child(3),
+    .teachers-grid .teacher-card:nth-child(3),
+    .cases-grid .case-card:nth-child(3),
+    .steps-row .step-item:nth-child(3) {
+      transition-delay: 0.25s;
+    }
+    .steps-row .step-item:nth-child(4) {
+      transition-delay: 0.35s;
+    }
+
+    /* Grade tabs smooth transitions */
+    .grade-tab-btn {
+      will-change: transform, background-color, border-color;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .grade-tab-btn:active {
+      transform: scale(0.95) !important;
+    }
+
+    .grade-detail-card {
+      transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    /* Calculator interactive pill springs */
+    .calc-pill {
+      will-change: transform, background, color;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  background 0.2s ease,
+                  color 0.2s ease !important;
+    }
+
+    .calc-pill:active {
+      transform: scale(0.94) !important;
+    }
+
+    .calc-result-box {
+      will-change: opacity, transform;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Live pulse for the chart target node */
+    @keyframes chartPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 12px rgba(245, 158, 11, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+      }
+    }
+
+    /* Fluid FAQ Accordion item */
+    .faq-item {
+      will-change: border-color, background-color;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .faq-content {
+      will-change: max-height, opacity;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.35s ease;
+    }
+
+    /* Primary button continuous subtle sheen */
+    @keyframes sheenPass {
+      0% {
+        left: -80%;
+      }
+      20%, 100% {
+        left: 140%;
+      }
+    }
+
+    .btn-primary.btn-shimmer::after {
+      animation: sheenPass 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* Smooth spotlight glow transition */
+    .spotlight-card::before {
+      transition: opacity 0.3s ease;
+      will-change: background;
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -3371,125 +3532,198 @@
       </div>
     </div>
   </div>
-  <script src="node_modules/motion/dist/motion.js"></script>
-  <script>
-    if (!window.Motion) {
-      const s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/motion@11/dist/motion.js';
-      document.head.appendChild(s);
-    }
-  </script>
+  
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      'use strict';
+
+      // ------------------------------------------------------------------------
+      // 1. Optimized Header & Scroll Spy (Zero layout thrashing via rAF)
+      // ------------------------------------------------------------------------
       const header = document.getElementById('siteHeader');
       const navLinks = document.querySelectorAll('.nav-link');
       const sections = document.querySelectorAll('main section[id]');
-      function handleScroll() {
-        const scrollY = window.scrollY;
-        if (scrollY > 30) {
+
+      let lastScrollY = window.scrollY;
+      let isHeaderScrolled = false;
+      let scrollTicking = false;
+
+      function updateScrollState() {
+        const currentScrollY = window.scrollY;
+        
+        // Header blur/compact state
+        if (currentScrollY > 30 && !isHeaderScrolled) {
           header.classList.add('scrolled');
-        } else {
+          isHeaderScrolled = true;
+        } else if (currentScrollY <= 30 && isHeaderScrolled) {
           header.classList.remove('scrolled');
+          isHeaderScrolled = false;
         }
-        let currentSectionId = '';
-        sections.forEach(sec => {
-          const top = sec.offsetTop - 120;
-          const height = sec.offsetHeight;
-          if (scrollY >= top && scrollY < top + height) {
-            currentSectionId = sec.getAttribute('id');
-          }
-        });
-        navLinks.forEach(link => {
-          if (currentSectionId && link.getAttribute('href') === `#${currentSectionId}`) {
-            link.classList.add('active');
-          } else {
-            link.classList.remove('active');
-          }
-        });
+
+        scrollTicking = false;
       }
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      handleScroll();
-      const spotlightCards = document.querySelectorAll('.spotlight-card');
-      spotlightCards.forEach(card => {
-        card.addEventListener('pointermove', (e) => {
-          const rect = card.getBoundingClientRect();
-          card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-          card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-        });
-        card.addEventListener('pointerleave', () => {
-          card.style.setProperty('--mouse-x', `-999px`);
-          card.style.setProperty('--mouse-y', `-999px`);
-        });
-      });
-      function initMotionAnimations() {
-        const hasMotion = typeof window.Motion !== 'undefined';
-        const curveLine = document.getElementById('chartCurveLine');
-        if (curveLine) {
-          if (hasMotion) {
-            window.Motion.animate(curveLine, { pathLength: [0, 1] }, { duration: 1.6, ease: [0.16, 1, 0.3, 1] });
-            window.Motion.animate('.chart-marker', { scale: [0, 1], opacity: [0, 1] }, {
-              delay: window.Motion.stagger(0.2, { start: 0.5 }),
-              duration: 0.6,
-              ease: [0.16, 1, 0.3, 1]
-            });
-          }
+
+      window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+          requestAnimationFrame(updateScrollState);
+          scrollTicking = true;
         }
-        const revealElements = document.querySelectorAll('.reveal-on-scroll');
-        if ('IntersectionObserver' in window) {
-          const revealObs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                if (hasMotion) {
-                  window.Motion.animate(entry.target, { opacity: [0, 1], y: [22, 0] }, { duration: 0.65, ease: [0.16, 1, 0.3, 1] });
+      }, { passive: true });
+      updateScrollState();
+
+      // IntersectionObserver for active section spy (0 layout reflow on scroll)
+      if ('IntersectionObserver' in window && sections.length > 0) {
+        const spyObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute('id');
+              navLinks.forEach(link => {
+                if (link.getAttribute('href') === `#${id}` || link.getAttribute('href') === `index.html#${id}`) {
+                  link.classList.add('active');
+                } else if (link.getAttribute('href')?.startsWith('#')) {
+                  link.classList.remove('active');
                 }
-                revealObs.unobserve(entry.target);
-              }
-            });
-          }, { threshold: 0.12 });
-          revealElements.forEach(el => revealObs.observe(el));
-        } else {
-          revealElements.forEach(el => el.classList.add('revealed'));
+              });
+            }
+          });
+        }, { rootMargin: '-20% 0px -60% 0px' });
+
+        sections.forEach(sec => spyObserver.observe(sec));
+      }
+
+      // ------------------------------------------------------------------------
+      // 2. Hardware-accelerated SVG Chart Curve & Marker Animations
+      // ------------------------------------------------------------------------
+      const curveLine = document.getElementById('chartCurveLine');
+      const chartFill = document.getElementById('chartFillPath');
+      const chartMarkers = document.querySelectorAll('.chart-marker');
+
+      if (curveLine) {
+        const pathLen = 380;
+        curveLine.style.strokeDasharray = pathLen;
+        curveLine.style.strokeDashoffset = pathLen;
+        curveLine.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(0.16, 1, 0.3, 1)';
+
+        if (chartFill) {
+          chartFill.style.opacity = '0';
+          chartFill.style.transition = 'opacity 1.2s ease 0.5s';
         }
+
+        chartMarkers.forEach((m, idx) => {
+          m.style.transformOrigin = 'center';
+          m.style.transform = 'scale(0)';
+          m.style.opacity = '0';
+          m.style.transition = `transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) ${0.5 + idx * 0.15}s, opacity 0.3s ease ${0.5 + idx * 0.15}s`;
+        });
+
+        // Trigger on load with requestAnimationFrame
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            curveLine.style.strokeDashoffset = '0';
+            if (chartFill) chartFill.style.opacity = '0.8';
+            chartMarkers.forEach(m => {
+              m.style.transform = 'scale(1)';
+              m.style.opacity = '1';
+            });
+          }, 150);
+        });
       }
-      if (typeof window.Motion !== 'undefined') {
-        initMotionAnimations();
+
+      // ------------------------------------------------------------------------
+      // 3. Butter-Smooth Scroll Reveals (Fail-safe, Zero-delay)
+      // ------------------------------------------------------------------------
+      const revealElements = document.querySelectorAll('.reveal-on-scroll');
+      if ('IntersectionObserver' in window) {
+        const revealObs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              revealObs.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
+
+        revealElements.forEach(el => revealObs.observe(el));
       } else {
-        setTimeout(initMotionAnimations, 200);
+        // Instant fallback
+        revealElements.forEach(el => el.classList.add('revealed'));
       }
+
+      // ------------------------------------------------------------------------
+      // 4. Spotlight Hover (Desktop only, 0-overhead on mobile)
+      // ------------------------------------------------------------------------
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        const spotlightCards = document.querySelectorAll('.spotlight-card');
+        spotlightCards.forEach(card => {
+          let cardRect = null;
+          card.addEventListener('mouseenter', () => {
+            cardRect = card.getBoundingClientRect();
+          });
+          card.addEventListener('mousemove', (e) => {
+            if (!cardRect) cardRect = card.getBoundingClientRect();
+            const x = e.clientX - cardRect.left;
+            const y = e.clientY - cardRect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+          });
+          card.addEventListener('mouseleave', () => {
+            card.style.setProperty('--mouse-x', '-999px');
+            card.style.setProperty('--mouse-y', '-999px');
+            cardRect = null;
+          });
+        });
+      }
+
+      // ------------------------------------------------------------------------
+      // 5. Mobile Drawer Menu (Fluid Apple-style spring slide)
+      // ------------------------------------------------------------------------
       const menuToggleBtn = document.getElementById('menuToggleBtn');
       const mobileMenu = document.getElementById('mobileMenu');
       const mobileMenuClose = document.getElementById('mobileMenuClose');
+
       function openMenu() {
+        if (!mobileMenu) return;
         mobileMenu.classList.add('open');
         mobileMenu.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
       }
+
       function closeMenu() {
+        if (!mobileMenu) return;
         mobileMenu.classList.remove('open');
         mobileMenu.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
       }
-      if (menuToggleBtn && mobileMenu && mobileMenuClose) {
-        menuToggleBtn.addEventListener('click', openMenu);
-        mobileMenuClose.addEventListener('click', closeMenu);
+
+      if (menuToggleBtn && mobileMenu) menuToggleBtn.addEventListener('click', openMenu);
+      if (mobileMenuClose && mobileMenu) mobileMenuClose.addEventListener('click', closeMenu);
+      if (mobileMenu) {
         mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
       }
+
+      // ------------------------------------------------------------------------
+      // 6. Smooth Stats Counter Animation
+      // ------------------------------------------------------------------------
       const counters = document.querySelectorAll('.counter');
       let countersAnimated = false;
+
       function startCounters() {
         if (countersAnimated) return;
         countersAnimated = true;
+
         counters.forEach(counter => {
           const target = parseInt(counter.getAttribute('data-target'), 10);
-          const duration = 1600;
+          const duration = 1500;
           const startTime = performance.now();
+
           function update(currentTime) {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            const easeOut = 1 - Math.pow(1 - progress, 3);
+            // Quartic ease out curve
+            const easeOut = 1 - Math.pow(1 - progress, 4);
             const current = Math.round(easeOut * target);
             counter.textContent = current;
+
             if (progress < 1) {
               requestAnimationFrame(update);
             } else {
@@ -3499,6 +3733,7 @@
           requestAnimationFrame(update);
         });
       }
+
       const trustBar = document.querySelector('.trust-bar');
       if (trustBar && 'IntersectionObserver' in window) {
         const obs = new IntersectionObserver((entries) => {
@@ -3511,6 +3746,10 @@
       } else {
         startCounters();
       }
+
+      // ------------------------------------------------------------------------
+      // 7. Score Progress Bars
+      // ------------------------------------------------------------------------
       const scoreBars = document.querySelectorAll('.score-bar-fill');
       if ('IntersectionObserver' in window) {
         const barObs = new IntersectionObserver((entries) => {
@@ -3526,14 +3765,21 @@
       } else {
         scoreBars.forEach(b => b.style.width = b.getAttribute('data-progress') + '%');
       }
+
+      // ------------------------------------------------------------------------
+      // 8. Calculator Logic with Smooth Feedback
+      // ------------------------------------------------------------------------
       let currentGrade = '10-11';
       let currentSubject = 'Математика';
       let currentGoal = 'НМТ 180+';
+
       const calcResultHeadline = document.getElementById('calcResultHeadline');
       const calcResultDesc = document.getElementById('calcResultDesc');
       const resPace = document.getElementById('resPace');
       const resOutcome = document.getElementById('resOutcome');
       const calcBookPlanBtn = document.getElementById('calcBookPlanBtn');
+      const resultBox = document.getElementById('calcResultBox');
+
       const programDatabase = {
         '1-4': {
           title: "Індивідуальна програма для молодшої школи",
@@ -3560,22 +3806,27 @@
           outcome: "+35–50 балів до стартового тесту • Вступ на бюджет"
         }
       };
+
       function updateCalculator() {
         const data = programDatabase[currentGrade] || programDatabase['10-11'];
-        calcResultHeadline.textContent = `${data.title}: ${currentSubject} (${currentGoal})`;
-        calcResultDesc.textContent = data.desc;
-        resPace.innerHTML = `<strong>Формат:</strong> ${data.pace}`;
-        resOutcome.innerHTML = `<strong>Очікуваний приріст:</strong> ${data.outcome}`;
-        const resultBox = document.getElementById('calcResultBox');
         if (resultBox) {
-          resultBox.style.opacity = '0.5';
-          resultBox.style.transform = 'scale(0.99)';
-          setTimeout(() => {
-            resultBox.style.opacity = '1';
-            resultBox.style.transform = 'scale(1)';
-          }, 100);
+          resultBox.style.opacity = '0.35';
+          resultBox.style.transform = 'translateY(4px) scale(0.995)';
         }
+
+        setTimeout(() => {
+          if (calcResultHeadline) calcResultHeadline.textContent = `${data.title}: ${currentSubject} (${currentGoal})`;
+          if (calcResultDesc) calcResultDesc.textContent = data.desc;
+          if (resPace) resPace.innerHTML = `<strong>Формат:</strong> ${data.pace}`;
+          if (resOutcome) resOutcome.innerHTML = `<strong>Очікуваний приріст:</strong> ${data.outcome}`;
+
+          if (resultBox) {
+            resultBox.style.opacity = '1';
+            resultBox.style.transform = 'translateY(0) scale(1)';
+          }
+        }, 80);
       }
+
       document.querySelectorAll('.calc-pills').forEach(group => {
         const field = group.getAttribute('data-field');
         group.querySelectorAll('.calc-pill').forEach(pill => {
@@ -3594,6 +3845,7 @@
           });
         });
       });
+
       document.querySelectorAll('.select-track-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
@@ -3609,6 +3861,7 @@
           }
         });
       });
+
       if (calcBookPlanBtn) {
         calcBookPlanBtn.addEventListener('click', () => {
           const modalGradeSelect = document.getElementById('modalGrade');
@@ -3617,11 +3870,16 @@
           }
         });
       }
+
+      // ------------------------------------------------------------------------
+      // 9. Smooth FAQ Accordion
+      // ------------------------------------------------------------------------
+      const faqItems = document.querySelectorAll('.faq-item');
       const activeFaq = document.querySelector('.faq-item.active .faq-content');
       if (activeFaq) {
         activeFaq.style.maxHeight = activeFaq.scrollHeight + 'px';
       }
-      const faqItems = document.querySelectorAll('.faq-item');
+
       faqItems.forEach(item => {
         const btn = item.querySelector('.faq-btn');
         const content = item.querySelector('.faq-content');
@@ -3641,17 +3899,27 @@
           }
         });
       });
+
+      // ------------------------------------------------------------------------
+      // 10. Modal Booking Overlay (Smooth open/close, ESC & backdrop handlers)
+      // ------------------------------------------------------------------------
       const modal = document.getElementById('bookingModal');
       const modalTriggers = document.querySelectorAll('.open-modal-trigger');
       const modalCloseBtn = document.getElementById('modalCloseBtn');
+
       function openModal() {
+        if (!modal) return;
+        if (mobileMenu && mobileMenu.classList.contains('open')) closeMenu();
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
       }
+
       function closeModal() {
+        if (!modal) return;
         modal.classList.remove('open');
         document.body.style.overflow = '';
       }
+
       modalTriggers.forEach(btn => btn.addEventListener('click', openModal));
       if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
       if (modal) {
@@ -3659,43 +3927,54 @@
           if (e.target === modal) closeModal();
         });
       }
+
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal && modal.classList.contains('open')) closeModal();
+        if (e.key === 'Escape') {
+          if (modal && modal.classList.contains('open')) closeModal();
+          if (mobileMenu && mobileMenu.classList.contains('open')) closeMenu();
+        }
       });
+
+      // Prevent '#' jump to top on footer policy links
+      document.querySelectorAll('a[href="#"]').forEach(a => {
+        a.addEventListener('click', (e) => e.preventDefault());
+      });
+
+      // ------------------------------------------------------------------------
+      // 11. Form Validation with Mask & Telegram check
+      // ------------------------------------------------------------------------
       function formatPhoneInput(input) {
-        input.addEventListener('input', (e) => {
+        input.addEventListener('input', () => {
           let val = input.value;
-          if (val.startsWith('@') || /^[A-Za-z]/.test(val)) {
-            return;
-          }
-          let cursor = input.selectionStart;
-          let oldLen = val.length;
-          const digits = val.replace(/\D/g, '');
-          if (!digits) {
-            input.value = '';
-            return;
-          }
-          let formatted = '+380 ';
-          let d = digits;
-          if (d.startsWith('380')) d = d.substring(3);
-          else if (d.startsWith('0')) d = d.substring(1);
-          if (d.length > 0) formatted += '(' + d.substring(0, 2);
-          if (d.length >= 2) formatted += ') ' + d.substring(2, 5);
-          if (d.length >= 5) formatted += '-' + d.substring(5, 7);
-          if (d.length >= 7) formatted += '-' + d.substring(7, 9);
-          input.value = formatted;
-          let newCursor = cursor + (formatted.length - oldLen);
-          if (newCursor < 0) newCursor = 0;
+          if (val.startsWith('@') || /^[A-Za-z]/.test(val)) return;
+          const oldLen = val.length;
+          const oldPos = input.selectionStart || oldLen;
+          let digits = val.replace(/\D/g, '');
+          if (digits.startsWith('380')) digits = digits.slice(3);
+          else if (digits.startsWith('0')) digits = digits.slice(1);
+          digits = digits.slice(0, 9);
+
+          let res = '+380 ';
+          if (digits.length > 0) res += '(' + digits.substring(0, 2);
+          if (digits.length >= 2) res += ') ' + digits.substring(2, 5);
+          if (digits.length >= 5) res += '-' + digits.substring(5, 7);
+          if (digits.length >= 7) res += '-' + digits.substring(7, 9);
+
+          input.value = res;
+          let newPos = oldPos + (res.length - oldLen);
+          if (newPos < 0) newPos = 0;
           if (document.activeElement === input) {
-            input.setSelectionRange(newCursor, newCursor);
+            input.setSelectionRange(newPos, newPos);
           }
         });
       }
+
       const leadContact = document.getElementById('leadContact');
       const modalContact = document.getElementById('modalContact');
       if (leadContact) formatPhoneInput(leadContact);
       if (modalContact) formatPhoneInput(modalContact);
-      function handleForm(formId, nameId, contactId, errNameId, errContactId, bodyId, successId) {
+
+      function setupFormValidation(formId, nameId, contactId, errNameId, errContactId, bodyId, successId) {
         const form = document.getElementById(formId);
         const nameInput = document.getElementById(nameId);
         const contactInput = document.getElementById(contactId);
@@ -3704,124 +3983,59 @@
         const bodyEl = document.getElementById(bodyId);
         const successEl = document.getElementById(successId);
         if (!form) return;
+
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           let valid = true;
+
           if (nameInput.value.trim().length < 2) {
-            errName.classList.add('visible');
+            if (errName) errName.classList.add('visible');
             nameInput.style.borderColor = '#ef4444';
             valid = false;
           } else {
-            errName.classList.remove('visible');
+            if (errName) errName.classList.remove('visible');
             nameInput.style.borderColor = '';
           }
+
           const contactVal = contactInput.value.trim();
           const digits = contactVal.replace(/\D/g, '');
           const isPhone = digits.length >= 9;
           const isTg = /^@?[A-Za-z][A-Za-z0-9_]{4,31}$/.test(contactVal);
+
           if (!isPhone && !isTg) {
-            errContact.classList.add('visible');
+            if (errContact) errContact.classList.add('visible');
             contactInput.style.borderColor = '#ef4444';
             valid = false;
           } else {
-            errContact.classList.remove('visible');
+            if (errContact) errContact.classList.remove('visible');
             contactInput.style.borderColor = '';
           }
+
           if (!valid) return;
-          bodyEl.style.display = 'none';
-          successEl.classList.add('active');
+
+          if (bodyEl) bodyEl.style.display = 'none';
+          if (successEl) {
+            successEl.classList.add('active');
+            successEl.style.display = 'block';
+          }
         });
+
         [nameInput, contactInput].forEach(inp => {
           if (inp) {
             inp.addEventListener('input', () => {
               inp.style.borderColor = '';
-              errName.classList.remove('visible');
-              errContact.classList.remove('visible');
+              const hint = inp.parentElement?.querySelector('.field-hint-error, .form-error');
+              if (hint) hint.classList.remove('visible');
             });
           }
         });
       }
-      handleForm('mainLeadForm', 'leadName', 'leadContact', 'nameError', 'contactError', 'leadFormBody', 'leadFormSuccess');
-      handleForm('modalLeadForm', 'modalName', 'modalContact', 'modalNameError', 'modalContactError', 'modalFormContainer', 'modalSuccessState');
-      const resetFormBtn = document.getElementById('resetFormBtn');
-      if (resetFormBtn) {
-        resetFormBtn.addEventListener('click', () => {
-          document.getElementById('leadFormBody').style.display = '';
-          document.getElementById('leadFormSuccess').classList.remove('active');
-          document.getElementById('mainLeadForm').reset();
-        });
-      }
-      const finalSection = document.getElementById('zapys');
-      const mobileStickyBar = document.getElementById('mobileStickyBar');
-      if (finalSection && mobileStickyBar && 'IntersectionObserver' in window) {
-        const stickyObs = new IntersectionObserver((entries) => {
-          if (entries[0].isIntersecting) {
-            mobileStickyBar.style.transform = 'translateY(100%)';
-            mobileStickyBar.style.transition = 'transform 0.3s ease';
-          } else {
-            mobileStickyBar.style.transform = 'translateY(0)';
-          }
-        }, { threshold: 0.15 });
-        stickyObs.observe(finalSection);
-      }
+
+      setupFormValidation('leadForm', 'leadName', 'leadContact', 'errName', 'errContact', 'leadFormBody', 'leadFormSuccess');
+      setupFormValidation('modalLeadForm', 'modalName', 'modalContact', 'modalNameError', 'modalContactError', 'modalFormContainer', 'modalSuccessState');
 
       // ------------------------------------------------------------------------
-      // Interactive Canvas Particles (Constellation effect)
-      // ------------------------------------------------------------------------
-      const canvas = document.getElementById('heroParticlesCanvas');
-      if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = canvas.parentElement.offsetWidth;
-        let height = canvas.height = canvas.parentElement.offsetHeight;
-        window.addEventListener('resize', () => {
-          if (!canvas.parentElement) return;
-          width = canvas.width = canvas.parentElement.offsetWidth;
-          height = canvas.height = canvas.parentElement.offsetHeight;
-        });
-        const particles = [];
-        const count = Math.min(35, Math.floor(width / 30));
-        for (let i = 0; i < count; i++) {
-          particles.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.4,
-            vy: (Math.random() - 0.5) * 0.4,
-            radius: Math.random() * 1.5 + 1
-          });
-        }
-        function renderParticles() {
-          ctx.clearRect(0, 0, width, height);
-          ctx.fillStyle = 'rgba(245, 158, 11, 0.4)';
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
-          for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            p.x += p.vx;
-            p.y += p.vy;
-            if (p.x < 0) p.x = width;
-            if (p.x > width) p.x = 0;
-            if (p.y < 0) p.y = height;
-            if (p.y > height) p.y = 0;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fill();
-            for (let j = i + 1; j < particles.length; j++) {
-              const p2 = particles[j];
-              const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-              if (dist < 100) {
-                ctx.beginPath();
-                ctx.moveTo(p.x, p.y);
-                ctx.lineTo(p2.x, p2.y);
-                ctx.stroke();
-              }
-            }
-          }
-          requestAnimationFrame(renderParticles);
-        }
-        renderParticles();
-      }
-
-      // ------------------------------------------------------------------------
-      // Dynamic 1-11 Grades Interactive Switcher Data
+      // 12. Dynamic 1-11 Grades Switcher with Smooth Cross-Fade
       // ------------------------------------------------------------------------
       const gradesData = {
         1: {
@@ -3921,21 +4135,37 @@
       const gradeModulesList = document.getElementById('gradeModulesList');
       const gradePace = document.getElementById('gradePace');
       const gradeResult = document.getElementById('gradeResult');
+      const gradeDetailCard = document.getElementById('gradeDetailCard');
 
       function updateGradeCard(gradeNum) {
         const data = gradesData[gradeNum];
         if (!data) return;
-        gradeBadge.textContent = data.badge;
-        gradeTitle.textContent = data.title;
-        gradeDesc.textContent = data.desc;
-        gradePace.textContent = data.pace;
-        gradeResult.textContent = data.result;
-        gradeModulesList.innerHTML = data.modules.map(m => `
-          <li style="display:flex; align-items:center; gap:10px; color:#e2e8f0; font-size:14.5px;">
-            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-            ${m}
-          </li>
-        `).join('');
+
+        if (gradeDetailCard) {
+          gradeDetailCard.style.opacity = '0.35';
+          gradeDetailCard.style.transform = 'translateY(6px) scale(0.995)';
+        }
+
+        setTimeout(() => {
+          if (gradeBadge) gradeBadge.textContent = data.badge;
+          if (gradeTitle) gradeTitle.textContent = data.title;
+          if (gradeDesc) gradeDesc.textContent = data.desc;
+          if (gradePace) gradePace.textContent = data.pace;
+          if (gradeResult) gradeResult.textContent = data.result;
+          if (gradeModulesList) {
+            gradeModulesList.innerHTML = data.modules.map(m => `
+              <li style="display:flex; align-items:center; gap:10px; color:#e2e8f0; font-size:14.5px;">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                ${m}
+              </li>
+            `).join('');
+          }
+
+          if (gradeDetailCard) {
+            gradeDetailCard.style.opacity = '1';
+            gradeDetailCard.style.transform = 'translateY(0) scale(1)';
+          }
+        }, 90);
       }
 
       gradeBtns.forEach(btn => {
@@ -3946,10 +4176,105 @@
           updateGradeCard(grade);
         });
       });
-      // Initialize 1 grade
+
+      // Initialize Grade 1 on load
       updateGradeCard(1);
 
-    });
-  </script>
+      // ------------------------------------------------------------------------
+      // 13. High-Performance Canvas Particles (Battery-efficient, auto-pause)
+      // ------------------------------------------------------------------------
+      const canvas = document.getElementById('heroParticlesCanvas');
+      if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const ctx = canvas.getContext('2d');
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        let width = 0;
+        let height = 0;
+        let isCanvasVisible = true;
+        let animationFrameId = null;
+
+        function resizeCanvas() {
+          if (!canvas.parentElement) return;
+          const rect = canvas.parentElement.getBoundingClientRect();
+          width = rect.width;
+          height = rect.height;
+          canvas.width = width * dpr;
+          canvas.height = height * dpr;
+          canvas.style.width = width + 'px';
+          canvas.style.height = height + 'px';
+          ctx.scale(dpr, dpr);
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas, { passive: true });
+
+        const particles = [];
+        const count = Math.min(30, Math.max(15, Math.floor(width / 35)));
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            radius: Math.random() * 1.5 + 1
+          });
+        }
+
+        function renderParticles() {
+          if (!isCanvasVisible) return;
+
+          ctx.clearRect(0, 0, width, height);
+          ctx.fillStyle = 'rgba(245, 158, 11, 0.45)';
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+            if (p.y < 0) p.y = height;
+            if (p.y > height) p.y = 0;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+              if (dist < 90) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          animationFrameId = requestAnimationFrame(renderParticles);
+        }
+
+        // Auto-pause when Hero is scrolled out of view to save 100% CPU/battery
+        if ('IntersectionObserver' in window) {
+          const heroObs = new IntersectionObserver((entries) => {
+            isCanvasVisible = entries[0].isIntersecting;
+            if (isCanvasVisible) {
+              if (!animationFrameId) renderParticles();
+            } else {
+              if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+              }
+            }
+          }, { threshold: 0.05 });
+
+          const heroEl = document.querySelector('.hero');
+          if (heroEl) heroObs.observe(heroEl);
+        } else {
+          renderParticles();
+        }
+      }
+    });</script>
 </body>
 </html>
